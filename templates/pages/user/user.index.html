@@ -1,0 +1,46 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+  <div class="content">
+    <div class="col-md-12">
+      <div class="card card-plain">
+        <div class="card-header">
+          <h4 class="card-title">Clientes</h4>
+          <p class="category">Planilha clientes cadastrados.</p>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table " id="">
+              <thead class="text-primary">
+                <tr>
+                  <th>Usuário</th>
+                  <th>Nome</th>
+                  <th>Email</th>
+                  <th>City</th>
+                  <th>CEP</th>
+                  <th>Endereço</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for user in users %}
+                <input type="hidden" value="{{user.id}}">
+                  <tr>
+                    <td>{{ user.user }}</td>
+                    <td>{{ user.nome }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.cidade }}</td>
+                    <td>{{ user.cep }}</td>
+                    <td>{{ user.endereco }}</td>
+                    <td><a type = "button"   href="{% url 'edit' user.id %}" class="btn btn-outline-info btn-sm"><i class="tim-icons icon-pencil"></i></a>
+                        <a type = "button" href="#" class = "btn btn-outline-danger  btn-sm"><i class="tim-icons icon-trash-simple"></i></a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

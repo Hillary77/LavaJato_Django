@@ -1,0 +1,109 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Create Cliente</h5>
+        </div>
+        <div class="card-body">
+          <!--{% csrf_token %} é usado para segurança externa dos formulários-->
+          <form action="{% url 'cadastrar' %}" method="POST">
+            {% csrf_token %} 
+            <div class="row">
+              <div class="col-md-6 pr-md-1">
+                <div class="form-group">
+                  <label>Usuário</label>
+                  <input type="text" name="user" class="form-control" placeholder="Username">
+                </div>
+              </div>
+              <div class="col-md-6 pl-md-1">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email</label>
+                  <input type="email" name="email" class="form-control" placeholder="mathews@email.com">
+                </div>
+              </div>
+              
+            </div>
+            <div class="row">
+              <div class="col-md-6 pr-md-1">
+                <div class="form-group">
+                  <label>Nome</label>
+                  <input type="text" name="nome" class="form-control" placeholder="Company">
+                </div>
+              </div>
+              <div class="col-md-6 pl-md-1">
+                <div class="form-group">
+                  <label>Sobrenome</label>
+                  <input type="text" name="sobrenome" class="form-control" placeholder="Last Name">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Endereço</label>
+                  <input type="text" name="endereco" class="form-control" placeholder="Home Address">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 pr-md-1">
+                <div class="form-group">
+                  <label>Cidade</label>
+                  <input type="text" name="cidade" class="form-control" placeholder="City">
+                </div>
+              </div>
+              <div class="col-md-4 px-md-1">
+                <div class="form-group">
+                  <label>CPF</label>
+                  <input type="number" name="cpf" class="form-control" placeholder="___.___.___-__">
+                </div>
+              </div>
+              <div class="col-md-4 pl-md-1">
+                <div class="form-group">
+                  <label>Código Postal</label>
+                  <input type="number" name="cep" class="form-control" placeholder="ZIP Code"> 
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="add-carros">
+              <h3>Carros</h3>
+              <span class="btn-add-carros" onclick="add_carro()">+ Adicionar um carro</span>
+              
+              <div id="form-carro">
+                 
+                          <br>
+                          <div class="row">
+                              <div class="col-md">
+                                  <input type='text' placeholder='carro' class='form-control' name='carro' >
+                              </div>
+
+                              <div class="col-md">
+                                  <input type='text' placeholder='Placa' class='form-control' name='placa' >
+                              </div>
+
+                              <div class="col-md">
+                                  <input type='number' placeholder='ano' class='form-control' name='ano' >
+                              </div>
+
+                          </div>
+                  
+              </div>
+
+          </div>
+            <div class="card-footer">
+              <input type="submit" class="btn btn-fill btn-primary" value="Salvar">
+            </div>
+          </form>
+        </div>
+       
+      </div>
+    </div>
+      
+  </div>
+</div>
+{% endblock content %}
