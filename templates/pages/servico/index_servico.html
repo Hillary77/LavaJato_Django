@@ -1,0 +1,45 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+  <div class="content">
+    <div class="col-md-12">
+      <div class="card card-plain">
+        <div class="card-header">
+          <h4 class="card-title">Serviços</h4>
+          <p class="category">Planilha com Serviços e Categorias.</p>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table " id="">
+              <thead class="text-primary">
+                <tr>
+                  <th>Clientes</th>
+                  <th>Título</th>
+                  <th>Categoria de serviço</th>
+                  <th>Data início</th>
+                  <th>Data Conclusão</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for value in servico %}
+                  <tr>
+                    <td>{{ value.cliente.nome }}</td>
+                    <td>{{ value.titulo }}</td>
+                    <td></td>
+                    <td>{{ value.data_init }}</td>
+                    <td>{{ value.data_end }}</td>
+                    <td>
+                      <a type="button" href="#" class="btn btn-outline-info btn-sm"><i class="tim-icons icon-pencil"></i></a>
+                      <a type="button" href="#" class="btn btn-outline-danger btn-sm"><i class="tim-icons icon-trash-simple"></i></a>
+                    </td>
+                  </tr>
+                {% endfor %}
+            </tbody>
+            
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
