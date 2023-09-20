@@ -10,12 +10,11 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table " id="">
+            <table class="table " id="myTable" class="display">
               <thead class="text-primary">
                 <tr>
                   <th>Clientes</th>
                   <th>Título</th>
-                  <th>Categoria de serviço</th>
                   <th>Data início</th>
                   <th>Data Conclusão</th>
                 </tr>
@@ -25,7 +24,6 @@
                   <tr>
                     <td>{{ value.cliente.nome }}</td>
                     <td>{{ value.titulo }}</td>
-                    <td></td>
                     <td>{{ value.data_init }}</td>
                     <td>{{ value.data_end }}</td>
                     <td>
@@ -42,4 +40,7 @@
       </div>
     </div>
   </div>
+
+
+
 {% endblock %}

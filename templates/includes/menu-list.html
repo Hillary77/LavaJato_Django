@@ -1,9 +1,11 @@
 {% load i18n static admin_black %}
+
+ <!--AUTENTICAÇÃO DE USUÁRIO-->
 <ul class="nav">
   <li class="{% if 'dashboard' in segment %} active {% endif %}">
     <a href="/">
       <i class="tim-icons icon-chart-pie-36"></i>
-      <p>Dashboard</p>
+      <p>Sobre nós</p>
     </a>
   </li>
   {% if not request.user.is_authenticated %}
@@ -71,11 +73,40 @@
   {% endfor %}
   {% endif %}
 
+ <!--Cadastro de usuário-->
+ <li class="{% if 'user_profile' in parent %}active{% endif %}">
+  <a data-toggle="collapse" href="#pagesuser">
+    <i class="tim-icons icon-single-02"></i>
+    <p>
+      Cliente
+      <b class="caret"></b>
+    </p>  
+  </a>
+  <div class="collapse" id="pagesuser">
+    <ul class="nav">
+      <li>
+        <a href="{% url 'cadastrar' %}">
+          <i class="tim-icons icon-simple-add"></i>
+          <span class="sidebar-mini-icon">L</span>
+          <span class="sidebar-normal"> Cadastro </span>
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'listar' %}">
+          <i class="tim-icons icon-align-center"></i>
+          <span class="sidebar-mini-icon">R</span>
+          <span class="sidebar-normal"> Registro</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 
-  <!--Cadastro de pátrimonio-->
+
+
+  <!--Cadastro de serviços-->
   <li class="{% if 'notifications' in parent %}active{% endif %}">
     <a data-toggle="collapse" href="#pagespatrimonio">
-      <i class="tim-icons icon-settings-gear-63"></i>
+      <i class="tim-icons icon-settings"></i>
       <p>
         Serviços
         <b class="caret"></b>
@@ -103,36 +134,7 @@
 
 
 
-
-  <!--Cadastro de usuário-->
- <li class="{% if 'user_profile' in parent %}active{% endif %}">
-    <a data-toggle="collapse" href="#pagesuser">
-      <i class="tim-icons icon-single-02"></i>
-      <p>
-        Cliente
-        <b class="caret"></b>
-      </p>
-    </a>
-    <div class="collapse" id="pagesuser">
-      <ul class="nav">
-        <li>
-          <a href="{% url 'cadastrar' %}">
-            <i class="tim-icons icon-simple-add"></i>
-            <span class="sidebar-mini-icon">L</span>
-            <span class="sidebar-normal"> Cadastro </span>
-          </a>
-        </li>
-        <li>
-          <a href="{% url 'listar' %}">
-            <i class="tim-icons icon-align-center"></i>
-            <span class="sidebar-mini-icon">R</span>
-            <span class="sidebar-normal"> Registro</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </li>
-
+ <!--LOUGOUT-->
 
   <li>
     <a href="{% url 'logout' %}">

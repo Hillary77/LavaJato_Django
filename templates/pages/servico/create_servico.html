@@ -24,7 +24,7 @@
                 <div class="col-md-3 pl-md-3">
                   <div class="form-group">
                     <label>Cliente</label><br />
-                    <select class="form-select" name="cliente_id" aria-label="Default select example" required>
+                    <select class="form-select" name="cliente_id" required>
                       <option selected>-------</option>
                       {% for value in clientes %}
                         <option value="{{ value.id }}">{{ value.nome }}</option>

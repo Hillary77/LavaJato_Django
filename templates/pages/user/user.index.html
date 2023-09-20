@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table " id="">
+            <table class="table">
               <thead class="text-primary">
                 <tr>
                   <th>Usuário</th>
@@ -23,7 +23,7 @@
               </thead>
               <tbody>
                 {% for user in users %}
-                <input type="hidden" value="{{user.id}}">
+                  <input type="hidden" value="{{ user.id }}" />
                   <tr>
                     <td>{{ user.user }}</td>
                     <td>{{ user.nome }}</td>
@@ -31,9 +31,12 @@
                     <td>{{ user.cidade }}</td>
                     <td>{{ user.cep }}</td>
                     <td>{{ user.endereco }}</td>
-                    <td><a type = "button"   href="{% url 'edit' user.id %}" class="btn btn-outline-info btn-sm"><i class="tim-icons icon-pencil"></i></a>
-                        <a type = "button" href="#" class = "btn btn-outline-danger  btn-sm"><i class="tim-icons icon-trash-simple"></i></a>
+                    
+                    <td>
+                      <a type="button" href="{% url 'edit' user.id %}"class="btn btn-outline-info btn-sm"><i class="tim-icons icon-pencil"></i></a>
+                      <a type="button" href="#" class="btn btn-outline-danger btn-sm"><i class="tim-icons icon-trash-simple"></i></a>
                     </td>
+               
                   </tr>
                 {% endfor %}
               </tbody>
