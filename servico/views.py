@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,  get_object_or_404
 from .models import Servico, CategoriaManutencao, Cliente
+from datetime import datetime
 
 def create_servico(request):
     if request.method == "GET":
@@ -41,3 +42,11 @@ def index_servico(request):
 
 
     return render(request, 'pages/servico/index_servico.html', {'clientes': clientes, 'servico' : servico})
+
+def edit_servico(request, id):
+    servicos = get_object_or_404(Servico, pk=id)
+
+    return render(request, 'pages/servico/edit_servico.html', {'servicos': servicos})
+
+def delete_servico(request):
+    pass

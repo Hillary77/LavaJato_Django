@@ -27,8 +27,8 @@
                     <td>{{ value.data_init }}</td>
                     <td>{{ value.data_end }}</td>
                     <td>
-                      <a type="button" href="#" class="btn btn-outline-info btn-sm"><i class="tim-icons icon-pencil"></i></a>
-                      <a type="button" href="#" class="btn btn-outline-danger btn-sm"><i class="tim-icons icon-trash-simple"></i></a>
+                      <a type="button" href="{% url 'edit_servico' value.id %}" class="btn btn-outline-info btn-sm"><i class="tim-icons icon-pencil"></i></a>
+                      <a type="button" href="{% url 'delete_servico' value.id %}" class="btn btn-outline-danger btn-sm"><i class="tim-icons icon-trash-simple"></i></a>
                     </td>
                   </tr>
                 {% endfor %}
