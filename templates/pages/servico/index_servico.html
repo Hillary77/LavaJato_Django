@@ -10,37 +10,46 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table " id="myTable" class="display">
+            <table class="table" id="myTable" class="display">
               <thead class="text-primary">
                 <tr>
+                  <th>Protocolo</th>
                   <th>Clientes</th>
                   <th>Título</th>
                   <th>Data início</th>
-                  <th>Data Conclusão</th>
+                  <th>Data Conclusão</th> 
+                  <th>Status</th>
+                  <th>Preço</th>
                 </tr>
               </thead>
               <tbody>
                 {% for value in servico %}
                   <tr>
-                    <td>{{ value.cliente.nome }}</td>
+                    <th><a href="{% url 'gerar_pdf' value.id %}">{{ value.protocolo }}</a></th>
+                    <td>{{ value.cliente }}</td>
                     <td>{{ value.titulo }}</td>
                     <td>{{ value.data_init }}</td>
                     <td>{{ value.data_end }}</td>
+
+                    <td>
+                      {% if servico.finalizado %}
+                        <span class="badge badge-success">Finalizado</span>
+                      {% else %}
+                        <span class="badge badge-info">Em manutenção</span>
+                      {% endif %}
+                    </td>
+                    <td>R${{value.valor_total}}</td>
                     <td>
                       <a type="button" href="{% url 'edit_servico' value.id %}" class="btn btn-outline-info btn-sm"><i class="tim-icons icon-pencil"></i></a>
                       <a type="button" href="{% url 'delete_servico' value.id %}" class="btn btn-outline-danger btn-sm"><i class="tim-icons icon-trash-simple"></i></a>
                     </td>
                   </tr>
                 {% endfor %}
-            </tbody>
-            
+              </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-
-
 {% endblock %}

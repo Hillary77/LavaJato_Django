@@ -17675,6 +17675,11 @@ table.tablesorter thead tr .headerSortDown {
   transform: translate3d(0px, 0, 0);
 }
 
+.distant{
+  padding-left: 200px;
+  padding-right: 200px;
+}
+
 .sidebar .logo:after,
 .off-canvas-sidebar .logo:after {
   content: '';

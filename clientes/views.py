@@ -36,12 +36,8 @@ def listar(request):
 def edit(request, id):
     cliente = get_object_or_404(Cliente, pk=id)
     users = Cliente.objects.all()
-
     carros = Carro.objects.filter(cliente=id) 
-    
-  
    
-    
     if request.method == "POST":
         # Obtenha os dados do POST
         user = request.POST.get('user')
@@ -52,7 +48,6 @@ def edit(request, id):
         cidade = request.POST.get('cidade')
         cpf = request.POST.get('cpf')
         cep = request.POST.get('cep')
-
 
         # Atualize os dados do cliente
         cliente.user = user
@@ -81,7 +76,7 @@ def edit(request, id):
 
 def delete(request, id):
     cliente = get_object_or_404(Cliente, pk=id)
-    carro = get_object_or_404(Carro, pk=id)
+    carro = get_object_or_404(Carro, cliente_id=id)
     carro.delete()
     cliente.delete()
     return redirect('listar')  # Substitua 'listar' pelo nome da URL para listar os clientes

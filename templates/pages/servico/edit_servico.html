@@ -10,31 +10,38 @@
           </div>
           <div class="card-body">
             <!-- {% csrf_token %} é usado para segurança externa dos formulários -->
-            <form action="#" method="POST">
+            <form action="{% url 'edit_servico' servico.id %}" method="POST">
               {% csrf_token %}
               <div class="row">
                 <div class="col-md-12 pr-md-1">
                   <div class="form-group">
                     <label>Título</label>
-                    <input type="text" name="titulo" class="form-control" placeholder="Serviços" required/>
+                    <input type="text" name="titulo" class="form-control" placeholder="Serviços" value="{{ servico.titulo }}" required />
                   </div>
                 </div>
               </div>
               <div class="row">
+
                 <div class="col-md-3 pl-md-3">
                   <div class="form-group">
                     <label>Cliente</label><br />
                     <select class="form-select" name="cliente_id" required>
-                      <option selected>-------</option>
-                   
+                      <option selected>{{servico.cliente.nome}}</option>
+                      {% for value in clientes %}
+                        <option value="{{ value.id }}">{{ value.nome }}</option>
+                      {% endfor %}
                     </select>
                   </div>
                 </div>
+
+              
+               
                 <div class="col-md-3 pl-md-3">
                   <div class="form-group">
-                    <label>Categorias de manutenção</label><br> 
+                    <label>Categorias de manutenção</label><br />
                     <select class="form-select" name="id_categoriasmanutencao" placeholder="Categorias de manutenção" multiple required>
-                      {% for value in categorias_create %}
+                     
+                      {% for value in categorias %}
                         <option value="{{ value.id }}">{{ value.titulo }}</option>
                       {% endfor %}
                     </select>
@@ -43,13 +50,13 @@
                 <div class="col-md-3 pl-md-1">
                   <div class="form-group">
                     <label>Data início</label>
-                    <input type="date" name="data_init" class="form-control" required/>
+                    <input type="date" name="data_init" class="form-control" value="{{ servico.data_init }}" required />
                   </div>
                 </div>
                 <div class="col-md-3 pl-md-1">
                   <div class="form-group">
                     <label>Data Conclusão</label>
-                    <input type="date" name="data_end" class="form-control" required/>
+                    <input type="date" name="data_end" class="form-control" value="{{ servico.data_end }}" required />
                   </div>
                 </div>
               </div>

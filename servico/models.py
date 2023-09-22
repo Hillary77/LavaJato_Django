@@ -1,5 +1,5 @@
 
-from secrets import token_hex
+from secrets import token_hex, token_urlsafe
 from django.db import models
 from clientes.models import Cliente
 from .choices import ChoicesCategoriaManutencao
@@ -21,7 +21,7 @@ class Servico(models.Model):
     data_end = models.DateField(null=True)
     finalizado = models.BooleanField(default=False)
     protocolo = models.CharField(max_length=52, null=True, blank=True)
-
+   
     def __str__(self) -> str:
         return self.titulo
     
@@ -29,6 +29,8 @@ class Servico(models.Model):
         if not self.protocolo:
             #Gerar protocolo de forma aleatoria e salva no banco de dados 
             self.protocolo = datetime.now().strftime("%d/%m/%Y-%H:%M:%S-") + token_hex(16)
+       
+     
         super(Servico, self).save(*args, **kwargs)
 
     def valor_total(self):
