@@ -18805,6 +18805,11 @@ code {
   }
 }
 
+
+.form-group.form-select{
+  color: #ec250d;
+}
+
 .form-group.has-danger .error,
 .input-group.has-danger .error {
   color: #ec250d;
