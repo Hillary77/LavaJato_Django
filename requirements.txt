@@ -3,6 +3,8 @@ gunicorn
 python-dotenv
 whitenoise
 django-admin-black==1.0.8
+fpdf==1.7.2
+
 
 # psycopg2-binary
 # mysqlclient

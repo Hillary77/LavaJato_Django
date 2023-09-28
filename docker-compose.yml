@@ -3,7 +3,13 @@ services:
   appseed-app:
     container_name: appseed_app
     restart: always
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    ports:
+      - "8000:8000"
     networks:
       - db_network
       - web_network
@@ -11,10 +17,10 @@ services:
     container_name: nginx
     restart: always
     image: "nginx:latest"
-    ports:
-      - "5085:5085"
     volumes:
       - ./nginx:/etc/nginx/conf.d
+    ports:
+      - "8000:8000"
     networks:
       - web_network
     depends_on: 
@@ -24,4 +30,3 @@ networks:
     driver: bridge
   web_network:
     driver: bridge
- 
