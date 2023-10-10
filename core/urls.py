@@ -15,12 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from rest_framework.routers import DefaultRouter
+from rest_framework import routers
+from clientes.api import viewsets as clientesviewsets
+from servico.api import viewsets as servicoviewsets
+
+route = routers.DefaultRouter()
+route.register(r'clientes', clientesviewsets.ClienteViewSet, basename="clientes")
+route.register(r'servico', servicoviewsets.ServicoViewSet, basename="servicos")
+route.register(r'carros', clientesviewsets.CarroViewSet, 
+basename="carros")
 
 urlpatterns = [
-    path("", include('home.urls')),
     path("admin/", admin.site.urls),
-    path("", include('admin_black.urls')),
     path("clientes/", include('clientes.urls')),
-    path("servico/", include('servico.urls'))
-
+    path("servico/", include('servico.urls')),
+    path("admin_black/", include('admin_black.urls')),
+    path("", include('home.urls')),
+    path("api/", include(route.urls)),
 ]

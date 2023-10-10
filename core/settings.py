@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     "home",
     #My Apps
     "clientes",
-    "servico"
+    "servico",
+    "rest_framework"
 ]
 
 MIDDLEWARE = [

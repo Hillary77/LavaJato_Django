@@ -1,10 +1,17 @@
-django
-gunicorn
-python-dotenv
-whitenoise
+asgiref==3.7.2
+certifi==2023.7.22
+charset-normalizer==3.3.0
+Django==4.2.6
 django-admin-black==1.0.8
+django-filter==23.3
+djangorestframework==3.14.0
 fpdf==1.7.2
-
-
-# psycopg2-binary
-# mysqlclient
+idna==3.4
+Markdown==3.4.4
+python-dotenv==1.0.0
+pytz==2023.3.post1
+requests==2.31.0
+sqlparse==0.4.4
+typing_extensions==4.8.0
+urllib3==2.0.6
+whitenoise==6.5.0

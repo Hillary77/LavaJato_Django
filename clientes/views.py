@@ -1,11 +1,12 @@
-from django.shortcuts import render, redirect, get_object_or_404
+import requests
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Cliente, Carro
+import json
 
 def cadastrar(request):
-    
     if request.method == "GET": 
-       return render (request, 'pages/user/user.create.html')
+        return render(request, 'pages/user/user.create.html')
     elif request.method == "POST":
         user = request.POST.get('user')
         email = request.POST.get('email')
@@ -19,16 +20,34 @@ def cadastrar(request):
         placa = request.POST.getlist('placa')
         ano = request.POST.getlist('ano')
 
-      
-        cliente = Cliente(user=user, email=email, nome=nome, sobrenome=sobrenome, endereco=endereco, cidade=cidade, cpf=cpf, cep=cep)
-        cliente.save()
 
-    for c, p, a in zip(carro, placa, ano):
-        car = Carro(carro=c, placa=p, ano=a, cliente=cliente)
-        car.save()
-
-        return redirect("listar")
     
+
+        # Enviar dados para a API
+        api_url = 'http://127.0.0.1:8000/api/clientes/'  # Substitua pela URL real da sua API
+        api_data = {
+            'user': user,
+            'email': email,
+            'nome': nome,
+            'sobrenome': sobrenome,
+            'endereco': endereco,
+            'cidade': cidade,
+            'cpf': cpf,
+            'cep': cep,
+            'carro': carro,
+            'placa': placa,
+            'ano': ano
+        }
+
+        # Configurar cabeçalhos e enviar dados no formato JSON
+        headers = {'Content-Type': 'application/json'}
+        response = requests.post(api_url, data=json.dumps(api_data), headers=headers)
+
+        if response.status_code == 201:  # Supondo que a API retorna 201 para a criação bem-sucedida
+            return redirect("listar")
+        else:
+            return HttpResponse(f'Erro ao enviar dados para a API. Código de status: {response.status_code}')
+
 def listar(request):
         users = Cliente.objects.all()
         return render(request, 'pages/user/user.index.html', {'users' : users})

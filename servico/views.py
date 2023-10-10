@@ -1,13 +1,16 @@
+import requests
 from django.shortcuts import render, redirect,  get_object_or_404
 from .models import Servico, CategoriaManutencao, Cliente
 from django.http import HttpResponse, FileResponse
 from datetime import datetime
 #Gerar pdf de nota fiscal
 from fpdf import FPDF 
+import json
 from io import BytesIO
 
 def create_servico(request):
     if request.method == "GET":
+        # Recupera todos os clientes e categorias para exibir no formulário
         clientes = Cliente.objects.all()
         categorias_create = CategoriaManutencao.objects.all()
         return render(request, 'pages/servico/create_servico.html', {'clientes': clientes, 'categorias_create': categorias_create})
@@ -19,26 +22,38 @@ def create_servico(request):
         categorias = request.POST.getlist('id_categoriasmanutencao')
         titulo = request.POST.get('titulo')
 
-        # Transforma os IDs das categorias de manutencao em objetos CategoriaManutencao
         categorias_manutencao = CategoriaManutencao.objects.filter(id__in=categorias)
 
-        servico = Servico(
-            data_init=data_init,
-            data_end=data_end,
-            cliente_id=cliente_id,
-            titulo=titulo,
-        )
-        servico.save()
+      
+        # URL da API
+        api_url = 'http://127.0.0.1:8000/api/servico/'  
+        # Substitua pela URL correta
 
-        # Adiciona as categorias selecionadas ao serviço
-        servico.categorias_manutencao.add(*categorias_manutencao)
-        return redirect("index_servico")
-    # Recupera novamente os clientes e categorias para reexibir o formulário
+        # Dados a serem enviados para a API
+        api_data = {
+            'data_init': data_init,
+            'data_end': data_end,
+            'cliente_id': cliente_id,
+            'categorias': categorias,
+            'titulo': titulo
+        }
+
+        # Configuração dos cabeçalhos
+        headers = {'Content-Type': 'application/json'}
+
+        # Envia os dados para a API usando o método POST
+        response = requests.post(api_url, data=json.dumps(api_data), headers=headers)
+
+        # Verifica se a resposta da API indica uma criação bem-sucedida (código de status 201)
+        if response.status_code == 201:
+            return redirect("index_servico")
+        else:
+            return HttpResponse(f'Erro ao enviar dados para a API. Código de status: {response.status_code}')
+
+    # Se o método não for GET nem POST, recupera novamente os clientes e categorias para reexibir o formulário
     clientes = Cliente.objects.all()
     categorias_create = CategoriaManutencao.objects.all()
-
     return render(request, 'pages/servico/create_servico.html', {'clientes': clientes, 'categorias_create': categorias_create})
-    
 
 def index_servico(request):
     clientes = Cliente.objects.all()
