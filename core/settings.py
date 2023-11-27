@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     #My Apps
     "clientes",
     "servico",
-    "rest_framework"
+    "rest_framework",
+    "drf_yasg"
 ]
 
 MIDDLEWARE = [

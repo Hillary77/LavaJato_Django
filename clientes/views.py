@@ -1,11 +1,14 @@
 import requests
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from .models import Cliente, Carro
 import json
 
+
 def cadastrar(request):
-    if request.method == "GET": 
+    if request.method == "GET":
         return render(request, 'pages/user/user.create.html')
     elif request.method == "POST":
         user = request.POST.get('user')
@@ -20,11 +23,8 @@ def cadastrar(request):
         placa = request.POST.getlist('placa')
         ano = request.POST.getlist('ano')
 
-
-    
-
         # Enviar dados para a API
-        api_url = 'http://127.0.0.1:8000/api/clientes/'  # Substitua pela URL real da sua API
+        api_url = 'http://127.0.0.1:8000/api/clientes/'
         api_data = {
             'user': user,
             'email': email,
@@ -41,22 +41,26 @@ def cadastrar(request):
 
         # Configurar cabeçalhos e enviar dados no formato JSON
         headers = {'Content-Type': 'application/json'}
-        response = requests.post(api_url, data=json.dumps(api_data), headers=headers)
+        response = requests.post(
+            api_url, data=json.dumps(api_data), headers=headers)
 
         if response.status_code == 201:  # Supondo que a API retorna 201 para a criação bem-sucedida
             return redirect("listar")
         else:
             return HttpResponse(f'Erro ao enviar dados para a API. Código de status: {response.status_code}')
 
-def listar(request):
+
+def listar(APIView):
+    def get(self, request):
         users = Cliente.objects.all()
-        return render(request, 'pages/user/user.index.html', {'users' : users})
+        return render(request, 'pages/user/user.index.html', {'users': users})
+
 
 def edit(request, id):
     cliente = get_object_or_404(Cliente, pk=id)
     users = Cliente.objects.all()
-    carros = Carro.objects.filter(cliente=id) 
-   
+    carros = Carro.objects.filter(cliente=id)
+
     if request.method == "POST":
         # Obtenha os dados do POST
         user = request.POST.get('user')
@@ -82,15 +86,15 @@ def edit(request, id):
 
         # Atualize os dados dos carros
         for carro in carros:
-            carro.carro = request.POST.get('carro')
-            carro.placa = request.POST.get('placa')
+            carro.carro = request.POST.getlist('carro')
+            carro.placa = request.POST.getlist('placa')
             carro.ano = request.POST.get('ano')
             carro.save()
-    
-        return redirect('listar')  # Substitua 'listar' pelo nome da URL para listar os clientes
+
+        # Substitua 'listar' pelo nome da URL para listar os clientes
+        return redirect('listar')
 
     return render(request, 'pages/user/user.edit.html', {'cliente': cliente, 'users': users, 'carros': carros})
-
 
 
 def delete(request, id):
@@ -98,4 +102,5 @@ def delete(request, id):
     carro = get_object_or_404(Carro, cliente_id=id)
     carro.delete()
     cliente.delete()
-    return redirect('listar')  # Substitua 'listar' pelo nome da URL para listar os clientes
+    # Substitua 'listar' pelo nome da URL para listar os clientes
+    return redirect('listar')

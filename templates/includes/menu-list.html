@@ -2,12 +2,7 @@
 
  <!--AUTENTICAÇÃO DE USUÁRIO-->
 <ul class="nav">
-  <li class="{% if 'dashboard' in segment %} active {% endif %}">
-    <a href="/">
-      <i class="tim-icons icon-chart-pie-36"></i>
-      <p>Sobre nós</p>
-    </a>
-  </li>
+
   {% if not request.user.is_authenticated %}
   <li class="{% if 'pages' in parent %}active{% endif %}">
     <a data-toggle="collapse" href="#pagesExamples">
